@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+    <top>
+        <AnchorPane fx:id="ap" prefHeight="479.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+            <children>
+                <ImageView fitHeight="552.0" fitWidth="851.0" layoutX="-11.0" layoutY="-28.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../style/background_main.jpg" />
+                    </image></ImageView>
+                <Label layoutX="37.0" layoutY="33.0" text="Welcome: ">
+                    <font>
+                        <Font name="Bell MT Bold" size="27.0" />
+                    </font>
+                </Label>
+                <Label layoutX="167.0" layoutY="33.0" text="agent_name" underline="true">
+                    <font>
+                        <Font name="Bell MT Bold" size="27.0" />
+                    </font>
+                </Label>
+                <TableView layoutX="37.0" layoutY="190.0" opacity="0.83" prefHeight="303.0" prefWidth="260" style="-fx-background-radius: 12; -fx-border-radius: 12;">
+                    <columns>
+                        <TableColumn prefWidth="119.00000381469727" text="Name" />
+                        <TableColumn prefWidth="67.0" text="Price" />
+                        <TableColumn prefWidth="75.39999389648438" text="Quantity" />
+                    </columns>
+                </TableView>
+                <TextField layoutX="37.0" layoutY="142.0" opacity="0.75" prefHeight="34.0" prefWidth="185.0" promptText="Search products" style="-fx-background-radius: 12;">
+               <font>
+                  <Font name="Bell MT Bold" size="16.0" />
+               </font></TextField>
+                <Button layoutX="238.0" layoutY="142.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="61.0" style="-fx-background-radius: 12;" text="Search">
+               <font>
+                  <Font name="Bell MT" size="14.0" />
+               </font></Button>
+                <Button layoutX="316.0" layoutY="349.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" style="-fx-background-radius: 12;" text="Add to cart" />
+                <Button layoutX="317.0" layoutY="403.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="83.0" style="-fx-background-radius: 12;" text="See cart" />
+                <Label layoutX="314.0" layoutY="190.0" text="Select Quantity">
+                    <font>
+                        <Font name="Bell MT Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Spinner layoutX="314.0" layoutY="222.0" prefHeight="26.0" prefWidth="56.0" />
+            <ImageView fitHeight="78.0" fitWidth="87.0" layoutX="422.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../style/cart.png" />
+               </image>
+            </ImageView>
+            <Circle fill="#ff1f1f" layoutX="488.0" layoutY="423.0" opacity="0.86" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label alignment="TOP_CENTER" layoutX="477.0" layoutY="413.0" prefHeight="13.0" prefWidth="22.0" text="0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Bell MT Bold" size="15.0" />
+               </font>
+            </Label>
+            <Button layoutX="317.0" layoutY="454.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="82.0" style="-fx-background-radius: 12;" text="My orders" />
+
+
+            </children>
+        </AnchorPane>
+    </top>
+</BorderPane>

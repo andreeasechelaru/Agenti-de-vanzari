@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="382.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <ImageView fitHeight="402.0" fitWidth="675.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../style/login.jpg" />
+         </image></ImageView>
+      <Button layoutX="240.0" layoutY="249.0" mnemonicParsing="false" opacity="0.84" prefHeight="36.0" prefWidth="73.0" style="-fx-background-color: #398f67; -fx-background-radius: 12;" text="Login" textAlignment="CENTER" textFill="#f4f5f5">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <TextField layoutX="77.0" layoutY="237.0" opacity="0.77" prefHeight="30.0" prefWidth="142.0" promptText="username" style="-fx-background-radius: 12;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="83.0" layoutY="55.0" prefHeight="50.0" prefWidth="154.0" text="CLEAR" textFill="#398f67">
+         <font>
+            <Font name="Bell MT Bold" size="39.0" />
+         </font>
+      </Label>
+      <Label layoutX="134.0" layoutY="95.0" text="&amp;" textFill="#398f67">
+         <font>
+            <Font name="Bell MT Bold" size="38.0" />
+         </font>
+      </Label>
+      <Label layoutX="84.0" layoutY="142.0" text="FRESH" textFill="#398f67">
+         <font>
+            <Font name="Bell MT Bold" size="39.0" />
+         </font>
+      </Label>
+      <PasswordField layoutX="77.0" layoutY="285.0" opacity="0.77" prefHeight="30.0" prefWidth="142.0" promptText="password" style="-fx-background-radius: 12;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </PasswordField>
+
+   </children>
+</AnchorPane>
