@@ -41,8 +41,8 @@
       <Button layoutX="310.0" layoutY="187.0" mnemonicParsing="false" opacity="0.89" prefHeight="30.0" prefWidth="113.0" style="-fx-background-radius: 12;" text="Update Quantity">
 
       </Button>
-      <TextField layoutX="318.0" layoutY="292.0" opacity="0.89" prefHeight="26.0" prefWidth="50.0" promptText="ex: 20" style="-fx-background-radius: 12;" />
-      <Button layoutX="313.0" layoutY="255.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="114.0" style="-fx-background-radius: 12;" text="Apply Discount">
+      <TextField layoutX="318.0" layoutY="255.0" opacity="0.89" prefHeight="26.0" prefWidth="50.0" promptText="ex: 20" style="-fx-background-radius: 12;" />
+      <Button layoutX="315.0" layoutY="289.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="114.0" style="-fx-background-radius: 12;" text="Apply Discount">
       </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a8b2aa73" height="47.0" layoutX="252.0" layoutY="37.0" opacity="0.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="195.0">
          <effect>
