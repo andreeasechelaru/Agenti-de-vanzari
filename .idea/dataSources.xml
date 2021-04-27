@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="salesAgents" uuid="05cf789d-b6dd-4166-9b1d-79fb06627ba3">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Facultate\An 2\Sem 2\ISS\Laborator\Agenti_de_vanzari\database\salesAgents</jdbc-url>
+    </data-source>
+  </component>
+</project>

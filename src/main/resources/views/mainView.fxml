@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.MainWindow">
     <top>
         <AnchorPane fx:id="ap" prefHeight="479.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
             <children>
@@ -19,7 +19,7 @@
                         <Font name="Bell MT Bold" size="27.0" />
                     </font>
                 </Label>
-                <Label layoutX="167.0" layoutY="33.0" text="agent_name" underline="true">
+                <Label fx:id="agentLogged" layoutX="167.0" layoutY="33.0" text="agent_name" underline="true">
                     <font>
                         <Font name="Bell MT Bold" size="27.0" />
                     </font>
