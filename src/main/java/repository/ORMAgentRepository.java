@@ -39,6 +39,27 @@ public class ORMAgentRepository implements IAgentRepository{
     }
 
     @Override
+    public Agent findByUsernameAndPassword(String username, String password) {
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                Agent agent = session.createQuery("from Agent u where u.username=:username and u.password=:password", Agent.class)
+                        .setParameter("username", username)
+                        .setParameter("password", password)
+                        .setMaxResults(1)
+                        .uniqueResult();
+                tx.commit();
+                return agent;
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+                return null;
+            }
+        }
+    }
+
+    @Override
     public Agent findOne(Integer integer) {
         return null;
     }
@@ -49,12 +70,12 @@ public class ORMAgentRepository implements IAgentRepository{
             Transaction tx = null;
             try {
                 tx = session.beginTransaction();
-                List<Agent> users =
+                List<Agent> agents =
                         session.createQuery("from Agent as u order by u.name asc", Agent.class).
                                 list();
-                System.out.println(users.size() + " agent(s) found:");
+                System.out.println(agents.size() + " agent(s) found:");
                 tx.commit();
-                return users;
+                return agents;
             } catch (RuntimeException ex) {
                 if (tx != null)
                     tx.rollback();
@@ -78,24 +99,5 @@ public class ORMAgentRepository implements IAgentRepository{
 
     }
 
-    @Override
-    public Agent findByUsernameAndPassword(String username, String password) {
-        try(Session session = sessionFactory.openSession()) {
-            Transaction tx = null;
-            try {
-                tx = session.beginTransaction();
-                Agent agent = session.createQuery("from Agent u where u.username=:username and u.password=:password", Agent.class)
-                        .setParameter("username", username)
-                        .setParameter("password", password)
-                        .setMaxResults(1)
-                        .uniqueResult();
-                tx.commit();
-                return agent;
-            } catch (RuntimeException ex) {
-                if (tx != null)
-                    tx.rollback();
-                return null;
-            }
-        }
-    }
+
 }

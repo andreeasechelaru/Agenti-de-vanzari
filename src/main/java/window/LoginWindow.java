@@ -43,7 +43,7 @@ public class LoginWindow {
         }catch (ValidationException | IOException e)
         {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("User invalid!");
+            errorAlert.setHeaderText("Invalid agent!");
             errorAlert.setContentText(e.getMessage());
             errorAlert.setHeight(300);
             errorAlert.showAndWait();

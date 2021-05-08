@@ -17,6 +17,7 @@
         <property name="format_sql">true</property>
 
         <mapping class="model.Agent"/>
+        <mapping class="model.Product"/>
 
     </session-factory>
 </hibernate-configuration>

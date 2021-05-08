@@ -1,5 +1,9 @@
 package model;
 
+import javax.persistence.Table;
+
+@javax.persistence.Entity
+@Table(name = "products")
 public class Product extends Entity<Integer>{
     private String name;
     private float price;
@@ -9,6 +13,10 @@ public class Product extends Entity<Integer>{
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    public Product() {
+
     }
 
     public String getName() {
@@ -33,5 +41,14 @@ public class Product extends Entity<Integer>{
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
     }
 }

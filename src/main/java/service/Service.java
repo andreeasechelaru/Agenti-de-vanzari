@@ -15,6 +15,8 @@ import validators.ValidationException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Service {
 
@@ -58,8 +60,24 @@ public class Service {
         return agentLogged;
     }
 
-    public void logout(){
+    public List<Product> getAllProducts()
+    {
+        List<Product> products = new ArrayList<>();
+        for(Product product : productRepo.findAll())
+        {
+            products.add(product);
+        }
+        return products;
+    }
 
+    public List<Product> searchProductsAfterName(String name){
+        List<Product> products = new ArrayList<>();
+        for(Product product : productRepo.findAll())
+        {
+            if(product.getName().toLowerCase().contains(name.toLowerCase()))
+                products.add(product);
+        }
+        return products;
     }
 
 }
