@@ -53,11 +53,21 @@ public class MainWindow {
         productsTable.setItems(model_products);
     }
 
+    /**
+     * Returns the name of the product inserted by the user
+     * @return password String
+     */
     public String typeProductName()
     {
         return productNameField.getText();
     }
 
+    /**
+     * Handle the agent-logged's click on search button. If the agent click the search button with no name
+     * inserted in corresponding field in the table will be displayed all products, else in the table will
+     * be showed all products that contains the given string
+     * @param actionEvent
+     */
     public void clickSearchButton(ActionEvent actionEvent) {
         String productName = typeProductName();
         if(productName.equals(""))

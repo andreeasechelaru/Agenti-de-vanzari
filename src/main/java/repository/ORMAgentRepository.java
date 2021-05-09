@@ -38,6 +38,13 @@ public class ORMAgentRepository implements IAgentRepository{
 
     }
 
+    /**
+     * Function that return an agent corresponding to the given credentials (username and password) found in database
+     * If there is no agent found it returns null
+     * @param username  String
+     * @param password String
+     * @return agentLogged Agent
+     */
     @Override
     public Agent findByUsernameAndPassword(String username, String password) {
         try(Session session = sessionFactory.openSession()) {
@@ -64,6 +71,11 @@ public class ORMAgentRepository implements IAgentRepository{
         return null;
     }
 
+    /**
+     * Function that returns all agents found in the database
+     * If there are some errors it returns null
+     * @return agents Iterable<Agent>
+     */
     @Override
     public Iterable<Agent> findAll() {
         try(Session session = sessionFactory.openSession()) {

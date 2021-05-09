@@ -30,6 +30,11 @@ public class LoginController {
     }
     public void setCurrentStage(Stage stage){this.currentStage = currentStage;}
 
+    /**
+     * Function that open the login window and initiate the program
+     * @param primaryStage Stage
+     * @throws IOException
+     */
     public void initiateLoginProcedure(Stage primaryStage) throws IOException {
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("/views/loginView.fxml"));
@@ -52,6 +57,13 @@ public class LoginController {
 
     }
 
+    /**
+     * Function that handle the Login Button clicked and if the agent logged is valid it initiates the main procedure
+     * @param username String
+     * @param password String
+     * @throws ValidationException
+     * @throws IOException
+     */
     public void handleLogin(String username, String password) throws ValidationException, IOException {
         Agent agent = new Agent("name", username, password);
         agent = service.login(agent);

@@ -30,12 +30,19 @@ public class MainController {
     }
     public void setLoggedAgent(Agent agent){this.loggedAgent = agent;}
 
+    /**
+     * Function that initiate the list of all products in order to display them in corresponding table
+     */
     public void initiateProducts()
     {
         List<Product> products = service.getAllProducts();
         window.initProductsTable(products);
     }
 
+    /**
+     * Function that open de Main Window and initiate products table
+     * @throws IOException
+     */
     public void initiateMainProcedure() throws IOException {
 
         Stage stage = new Stage();
@@ -62,6 +69,11 @@ public class MainController {
 
     }
 
+    /**
+     * Function that handle the search button that return a list of products that contains a given string
+     * @param productName String
+     * @return products List<Product>
+     */
     public List<Product> handleSearchProduct(String productName)
     {
         return service.searchProductsAfterName(productName);

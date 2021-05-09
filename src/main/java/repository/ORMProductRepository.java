@@ -44,6 +44,11 @@ public class ORMProductRepository implements IProductRepository{
         return null;
     }
 
+    /**
+     * Function that returns all products found in the database
+     * If there are some errors it returns null
+     * @return products Iterable<Product>
+     */
     @Override
     public Iterable<Product> findAll() {
         try(Session session = sessionFactory.openSession()) {

@@ -53,6 +53,5 @@ public class Main extends Application {
         LoginController loginController = new LoginController();
         loginController.setService(service);
         loginController.initiateLoginProcedure(primaryStage);
-
     }
 }

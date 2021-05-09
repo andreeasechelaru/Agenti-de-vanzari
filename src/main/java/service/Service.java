@@ -36,6 +36,11 @@ public class Service {
         this.orderValidator = orderValidator;
     }
 
+    /***
+     * function that returns the password hashed
+     * @param password String
+     * @return hashedPassword String
+     */
     public String hashPassword(String password)
     {
         try{
@@ -50,6 +55,13 @@ public class Service {
             return null;
         }
     }
+
+    /***
+     * Function that validate the agent' username and password and return the agent found in database corresponding to it's credentials
+     * @param agentLogged Agent
+     * @return agentLogged Agent
+     * @throws ValidationException
+     */
     public Agent login(Agent agentLogged) throws ValidationException
     {
         agentValidator.validate(agentLogged);
@@ -60,6 +72,10 @@ public class Service {
         return agentLogged;
     }
 
+    /***
+     * Function that returns all products from database
+     * @return products List<Product>
+     */
     public List<Product> getAllProducts()
     {
         List<Product> products = new ArrayList<>();
@@ -70,6 +86,11 @@ public class Service {
         return products;
     }
 
+    /***
+     * Function that search products from database that contain a given string in their name
+     * @param name String
+     * @return products List<Product>
+     */
     public List<Product> searchProductsAfterName(String name){
         List<Product> products = new ArrayList<>();
         for(Product product : productRepo.findAll())

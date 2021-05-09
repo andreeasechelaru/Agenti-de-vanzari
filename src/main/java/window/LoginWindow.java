@@ -27,14 +27,27 @@ public class LoginWindow {
         this.controller = controller;
     }
 
+    /**
+     * Returns the username inserted by the user
+     * @return username String
+     */
     public String typeUsername(){
         return usernameField.getText();
     }
 
+    /**
+     * Returns the password inserted by the user
+     * @return password String
+     */
     public String typePassword(){
         return passwordField.getText();
     }
 
+    /**
+     * Handle the user's click on login button. If the agent is valid the window is closed in order to open a new one
+     * corresponding to main stage, else an alert window will show up with the error messages.
+     * @param actionEvent
+     */
     public void clickLoginButton(ActionEvent actionEvent) {
         try{
             controller.handleLogin(typeUsername(), typePassword());
