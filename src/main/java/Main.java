@@ -1,3 +1,4 @@
+import repository.DBOrderRepository;
 import controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,10 @@ import validators.IValidator;
 import validators.OrderValidator;
 import validators.ProductValidator;
 import window.LoginWindow;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 
 public class Main extends Application {
 
@@ -36,10 +41,19 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
+        Properties props = new Properties();
+        try{
+            props.load(new FileReader("bd.properties"));
+        }catch (IOException e){
+            System.out.println("Cannot find bd.properties " + e);
+        }
+
         //repositories
         agentRepository = new ORMAgentRepository();
         productRepository = new ORMProductRepository();
-        orderRepository = new ORMOrderRepository();
+//        orderRepository = new ORMOrderRepository();
+        orderRepository = new DBOrderRepository(props);
         //validators
         agentIValidator = new AgentValidator();
         productIValidator = new ProductValidator();

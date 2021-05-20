@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="model.Order" table="orders" discriminator-value="order">
+        <id name="id" column="id" type="java.lang.Integer">
+            <generator class="increment"/>
+        </id>
+
+        <property name="dateTime" type="java.time.LocalDateTime" column="dateTime"/>
+        <property name="status" column="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">model.TypeStatus</param>
+            </type>
+        </property>
+
+        <property name="agent" type="java.lang.Integer" column="agent"/>
+        <property name="total" type="java.lang.Float" column="total"/>
+
+        <set name="products" cascade="all">
+            <key column="ID"/>
+            <one-to-many class="model.Product"/>
+        </set>
+
+    </class>
+</hibernate-mapping>

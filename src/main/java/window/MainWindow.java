@@ -9,13 +9,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Product;
+import validators.ValidationException;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.io.IOException;
 import java.util.List;
 
 public class MainWindow {
     @FXML
     public Label agentLogged;
+    @FXML
+    public Spinner quantitySelector;
+    @FXML
+    public Label productsCart;
+
+
     MainController controller;
 
     @FXML
@@ -78,5 +86,66 @@ public class MainWindow {
             List<Product> products = controller.handleSearchProduct(productName);
             initProductsTable(products);
         }
+    }
+
+    /**
+     * Return the selected product from the table
+     * @return Product
+     */
+    public Product selectProduct()
+    {
+        return productsTable.getSelectionModel().getSelectedItem();
+    }
+
+    /**
+     * Return the selected quantity from the spinner
+     * @return Integer
+     */
+    public int selectQuantity()
+    {
+        return (Integer)quantitySelector.getValue();
+    }
+
+    /**
+     * Add the selected product and quantity to the agent's cart
+     * If the agent forgets to select a product the program will display an error message: You must select a product!
+     * If the agent select a bigger quantity (than the one available on stock) the program will display an error message:
+     *                              There is not that much quantity of the selected product. Select a smaller quantity
+     */
+    public void clickAddToCartButton()
+    {
+        try{
+            controller.handleAddToCart(selectProduct(), selectQuantity());
+        }catch (ValidationException e)
+        {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Quantity error");
+            errorAlert.setContentText(e.getMessage());
+            errorAlert.setHeight(300);
+            errorAlert.showAndWait();
+        }
+    }
+
+    public void updateCart(Integer products)
+    {
+        productsCart.setText(products.toString());
+    }
+
+    public void clickSeeCartButton()
+    {
+        try{
+            controller.handleSeeCart();
+        }catch (ValidationException | IOException e)
+        {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Error");
+            errorAlert.setContentText(e.getMessage());
+            errorAlert.setHeight(300);
+            errorAlert.showAndWait();
+        }
+    }
+
+    public void clickMyOrdersButton() throws IOException {
+        controller.handleMyOrders();
     }
 }

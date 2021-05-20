@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -41,7 +42,20 @@ public class ORMProductRepository implements IProductRepository{
 
     @Override
     public Product findOne(Integer integer) {
-        return null;
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                Product product = session.load(Product.class, integer);
+                System.out.println(product + " product found");
+                tx.commit();
+                return product;
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+                return null;
+            }
+        }
     }
 
     /**
@@ -81,6 +95,21 @@ public class ORMProductRepository implements IProductRepository{
 
     @Override
     public void update(Integer integer, Product entity) {
-
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                Query query = session.createQuery("update Product set quantity=:quantity where id=:id ");
+                query.setParameter("quantity", entity.getQuantity());
+                query.setParameter("id", integer);
+                int result = query.executeUpdate();
+                tx.commit();
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+            }
+        }
     }
+
+
 }

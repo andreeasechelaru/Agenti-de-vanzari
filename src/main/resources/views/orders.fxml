@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="597.0" prefWidth="472.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrdersController">
+<AnchorPane prefHeight="597.0" prefWidth="472.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.OrderWindow">
    <children>
       <ImageView fitHeight="618.0" fitWidth="526.0" layoutX="-2.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -17,14 +17,14 @@
             <Font name="Bell MT Bold" size="32.0" />
          </font>
       </Label>
-      <TableView layoutX="85.0" layoutY="154.0" opacity="0.86" prefHeight="290.0" prefWidth="299.0" style="-fx-background-radius: 12; -fx-border-radius: 12;">
+      <TableView fx:id="tableOrders" layoutX="85.0" layoutY="154.0" opacity="0.86" prefHeight="290.0" prefWidth="299.0" style="-fx-background-radius: 12; -fx-border-radius: 12;">
         <columns>
-          <TableColumn prefWidth="75.0" text="No. Order" />
-          <TableColumn prefWidth="75.0" text="Date" />
-          <TableColumn prefWidth="75.0" text="Time" />
-          <TableColumn prefWidth="75.0" text="Status" />
+          <TableColumn fx:id="idColumn" prefWidth="75.0" text="No. Order" />
+          <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
+          <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Price" />
+          <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
         </columns>
       </TableView>
-      <Button layoutX="187.0" layoutY="489.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="95.0" style="-fx-background-radius: 12;" text="Cancel Order" />
+      <Button layoutX="187.0" layoutY="489.0" mnemonicParsing="false" onAction="#clickCancelOrder" prefHeight="39.0" prefWidth="95.0" style="-fx-background-radius: 12;" text="Cancel Order" />
    </children>
 </AnchorPane>

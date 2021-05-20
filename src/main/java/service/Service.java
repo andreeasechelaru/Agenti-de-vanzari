@@ -1,9 +1,7 @@
 package service;
 
 
-import model.Agent;
-import model.Order;
-import model.Product;
+import model.*;
 import repository.IAgentRepository;
 import repository.IOrderRepository;
 import repository.IProductRepository;
@@ -15,8 +13,9 @@ import validators.ValidationException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.SQLOutput;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class Service {
 
@@ -26,6 +25,8 @@ public class Service {
     private IValidator<Agent> agentValidator;
     private IValidator<Product> productValidator;
     private IValidator<Order> orderValidator;
+
+    private Cart currentCart = new Cart();
 
     public Service(IAgentRepository agentRepo, IProductRepository productRepo, IOrderRepository orderRepo, IValidator<Agent> agentValidator, IValidator<Product> productValidator, IValidator<Order> orderValidator) {
         this.agentRepo = agentRepo;
@@ -87,6 +88,32 @@ public class Service {
     }
 
     /***
+     * Function that returns all products from database
+     * @return products List<Product>
+     */
+    public List<Order> getAllOrders(int agent)
+    {
+        List<Order> orders = new ArrayList<>();
+        for(Order order : orderRepo.findAll())
+        {
+            if(order.getAgent() == agent)
+            {
+                List<Tuple> productsTuple = orderRepo.findProductsOrder(order);
+                List<Product> products = new ArrayList<>();
+                for(Tuple pId : productsTuple)
+                {
+                    Product p = productRepo.findOne(pId.getLeft());
+                    p.setQuantity(pId.getRight());
+                    products.add(p);
+                }
+                order.setProducts(products);
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+
+    /***
      * Function that search products from database that contain a given string in their name
      * @param name String
      * @return products List<Product>
@@ -101,4 +128,101 @@ public class Service {
         return products;
     }
 
+    public void productAddedToCart(Product product, int quantity){
+        product.setQuantity(product.getQuantity() - quantity);
+        productRepo.update(product.getId(), product);
+    }
+
+    public List<Product> getAllProductsFromCart(Cart cart)
+    {
+        Iterator it = cart.getProducts().entrySet().iterator();
+        List<Product> products = new ArrayList<>();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            int pId = (Integer) pair.getKey();
+            Product p = productRepo.findOne(pId);
+            p.setQuantity((Integer)pair.getValue());
+            products.add(p);
+        }
+        return products;
+    }
+
+    public void updateQuantity(Product product, int oldQuantity, int newQuantity) {
+        if(newQuantity < oldQuantity)
+        {
+            System.out.println("Put product back");
+            //put products back to database
+            int quantity = oldQuantity-newQuantity;
+            int dbQuantity = getDBQuantity(product);
+            product.setQuantity(dbQuantity + quantity);
+            productRepo.update(product.getId(), product);
+            System.out.println("Product updated");
+        }else{
+            System.out.println("Add product from bd");
+            //put products back to database
+            int quantity = newQuantity-oldQuantity;
+            int dbQuantity = getDBQuantity(product);
+            product.setQuantity(dbQuantity - quantity);
+            productRepo.update(product.getId(), product);
+            System.out.println("Product updated");
+        }
+    }
+
+    public int getDBQuantity(Product p){
+        System.out.println("Service");
+        Product p1 = productRepo.findOne(p.getId());
+        return p1.getQuantity();
+    }
+
+    public void placeOrder(Agent agent, Cart cart)
+    {
+        Order order = new Order();
+        order.setAgent(agent.getId());
+        order.setProducts(getAllProductsFromCart(cart));
+        int discount = cart.getDiscount();
+        float total = cart.getTotalPrice();
+        System.out.println("New order created ...");
+        order.setTotal(total - ((discount * total) / 100));
+        order.setDateTime(LocalDateTime.now());
+        order.setStatus(TypeStatus.pending);
+        System.out.println(order);
+        orderRepo.add(order);
+        int id = orderRepo.findAfterDate(order.getDateTime());
+        order.setId(id);
+        orderRepo.addProducts(order);
+
+        Timer t = new java.util.Timer();
+        t.schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        int ok = 0;
+                        List<Order> orders = getAllOrders(1);
+                        System.out.println("All orders: ");
+                        for(Order o : orders)
+                            System.out.println(o);
+                        while(ok == 0)
+                        {
+                            int index = (int)(Math.random() * orders.size());
+                            Order order1 = orders.get(index);
+                            if(order1.getStatus() == TypeStatus.pending) {
+                                ok = 1;
+                                order1.setStatus(TypeStatus.accepted);
+                                orderRepo.update(order1.getId(), order1);
+                            }
+
+                        }
+                        t.cancel();
+                    }
+                },
+                10000
+        );
+
+    }
+
+    public void cancelOrder(Order order)
+    {
+        order.setStatus(TypeStatus.canceled);
+        orderRepo.update(order.getID(), order);
+    }
 }

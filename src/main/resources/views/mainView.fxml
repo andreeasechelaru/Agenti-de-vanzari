@@ -39,26 +39,26 @@
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font></Button>
-                <Button layoutX="359.0" layoutY="349.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" style="-fx-background-radius: 12;" text="Add to cart" />
-                <Button layoutX="361.0" layoutY="403.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="83.0" style="-fx-background-radius: 12;" text="See cart" />
+                <Button layoutX="359.0" layoutY="349.0" mnemonicParsing="false" onAction="#clickAddToCartButton" prefHeight="35.0" prefWidth="86.0" style="-fx-background-radius: 12;" text="Add to cart" />
+                <Button layoutX="361.0" layoutY="403.0" mnemonicParsing="false" onAction="#clickSeeCartButton" prefHeight="33.0" prefWidth="83.0" style="-fx-background-radius: 12;" text="See cart" />
                 <Label layoutX="360.0" layoutY="190.0" text="Select Quantity">
                     <font>
                         <Font name="Bell MT Bold" size="18.0" />
                     </font>
                 </Label>
-                <Spinner layoutX="360.0" layoutY="221.0" prefHeight="26.0" prefWidth="56.0" />
+                <Spinner fx:id="quantitySelector" editable="true" layoutX="360.0" layoutY="221.0" max="100" min="0" prefHeight="26.0" prefWidth="56.0" />
             <ImageView fitHeight="78.0" fitWidth="87.0" layoutX="476.0" layoutY="398.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../style/cart.png" />
                </image>
             </ImageView>
             <Circle fill="#ff1f1f" layoutX="549.0" layoutY="420.0" opacity="0.86" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label alignment="TOP_CENTER" layoutX="538.0" layoutY="410.0" prefHeight="13.0" prefWidth="22.0" text="0" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="productsCart" alignment="TOP_CENTER" layoutX="538.0" layoutY="410.0" prefHeight="13.0" prefWidth="22.0" text="0" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Bell MT Bold" size="15.0" />
                </font>
             </Label>
-            <Button layoutX="361.0" layoutY="453.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="82.0" style="-fx-background-radius: 12;" text="My orders" />
+            <Button layoutX="361.0" layoutY="453.0" mnemonicParsing="false" onAction="#clickMyOrdersButton" prefHeight="33.0" prefWidth="82.0" style="-fx-background-radius: 12;" text="My orders" />
 
 
             </children>

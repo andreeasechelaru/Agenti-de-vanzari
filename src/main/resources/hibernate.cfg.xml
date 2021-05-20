@@ -16,8 +16,9 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
 
+
         <mapping class="model.Agent"/>
         <mapping class="model.Product"/>
-
+        <mapping resource="order.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

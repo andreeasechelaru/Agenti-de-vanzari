@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import model.Product;
 import sun.security.validator.ValidatorException;
 import validators.ValidationException;
 
@@ -62,6 +63,7 @@ public class LoginWindow {
             errorAlert.showAndWait();
         }
     }
+
 
 }
 
