@@ -12,4 +12,6 @@ public interface IOrderRepository extends IRepository<Integer, Order> {
     int findAfterDate(LocalDateTime date);
     void addProducts(Order order);
     List<Tuple> findProductsOrder(Order order);
+    void deleteProducts(Order order);
+    void updateImportance(Integer id, Order order);
 }

@@ -1,19 +1,15 @@
 package controller;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import model.Agent;
 import model.Cart;
 import model.Product;
 import service.Service;
 import validators.ValidationException;
 import window.CartWindow;
-import window.MainWindow;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,32 +18,47 @@ public class CartController {
 
     Service service;
     Agent loggedAgent;
-    CartWindow window;
+    CartWindow cartWindow;
     MainController mainController;
     Cart curentCart;
 
-    public void setService(Service service){
+    /**
+     * Set all properties needed for the controller
+     * @param service Service
+     * @param agent Agent - the logged agent
+     * @param cart Cart - the current cart
+     * @param mainController MainController - to update products from the main window
+     */
+    public void setProperties(Service service, Agent agent, Cart cart, MainController mainController)
+    {
         this.service = service;
+        this.loggedAgent = agent;
+        this.curentCart = cart;
+        this.mainController = mainController;
     }
-    public void setLoggedAgent(Agent agent){this.loggedAgent = agent;}
-    public void setCart(Cart cart){this.curentCart = cart;}
-    public void setMainController(MainController mainController){this.mainController = mainController;}
 
+    /**
+     * Initiate table with the products from current cart and update cart info from window (price, length)
+     */
     public void initiateCart()
     {
         List<Product> products = service.getAllProductsFromCart(curentCart);
-        window.initProductsTable(products);
-        window.updateTotalPrice(curentCart.getTotalPrice());
-        window.updateProductsSize(curentCart.getTotalProducts());
+        cartWindow.initProductsTable(products);
+        cartWindow.updateCartInfo(curentCart.getTotalPrice(), curentCart.getTotalProducts());
+
     }
 
+    /**
+     * Open the window for the current controller in order to display card information for the logged agent
+     * @throws IOException if there is a problem on opening the window
+     */
     public void initiateCartProcedure() throws IOException {
         Stage stage = new Stage();
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("/views/cartView.fxml"));
         AnchorPane mainLayout = Loader.load();
-        window = Loader.getController();
-        window.setController(this, mainController);
+        cartWindow = Loader.getController();
+        cartWindow.setController(this, mainController);
         Scene mainScene = new Scene(mainLayout);
         stage.setScene(mainScene);
         stage.show();
@@ -90,12 +101,13 @@ public class CartController {
         }
         mainController.initiateProducts();
         mainController.updateCurrentCart(curentCart);
-
-        window.updateProductsSize(curentCart.getTotalProducts());
-        window.updateTotalPrice(curentCart.getTotalPrice());
         initiateCart();
     }
 
+    /**
+     * Set discount to current cart if the discount is available (0 < discount < 100)
+     * @param discount
+     */
     public void handleApplyDiscount(int discount)
     {
         if(discount >= 100)
@@ -103,6 +115,10 @@ public class CartController {
         curentCart.setDiscount(discount);
     }
 
+
+    /**
+     * Place the order of the current agent with his cart
+     */
     public void handlePlaceOrder()
     {
         service.placeOrder(loggedAgent, curentCart);

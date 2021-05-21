@@ -1,11 +1,8 @@
 package repository;
 
 
-import model.Order;
+import model.*;
 
-import model.Product;
-import model.Tuple;
-import model.TypeStatus;
 import repository.IOrderRepository;
 import repository.JdbcUtils;
 
@@ -45,7 +42,8 @@ public class DBOrderRepository implements IOrderRepository {
                     TypeStatus status = TypeStatus.valueOf(result.getString("status"));
                     Float total = result.getFloat("total");
                     int agent = result.getInt("agent");
-                    Order o = new Order(agent, null, date, status, total);
+                    TypeImportance importance = TypeImportance.valueOf(result.getString("importance"));
+                    Order o = new Order(agent, null, date, status, total, importance);
                     o.setId(id);
                     orders.add(o);
                 }
@@ -59,11 +57,12 @@ public class DBOrderRepository implements IOrderRepository {
     @Override
     public void add(Order entity) {
         Connection con = dbUtils.getConnection();
-        try(PreparedStatement preStmt = con.prepareStatement("insert into orders (dateTime, status, total, agent) values (?,?,?,?)")){
+        try(PreparedStatement preStmt = con.prepareStatement("insert into orders (dateTime, status, total, agent, importance) values (?,?,?,?,?)")){
             preStmt.setString(1, entity.getDateTime().toString());
             preStmt.setString(2, entity.getStatus().toString());
             preStmt.setFloat(3, entity.getTotal());
             preStmt.setInt(4, entity.getAgent());
+            preStmt.setString(5, entity.getImportance().toString());
             int result = preStmt.executeUpdate();
         } catch (SQLException ex) {
             System.err.println("Error DB " + ex);
@@ -72,7 +71,13 @@ public class DBOrderRepository implements IOrderRepository {
 
     @Override
     public void delete(Integer integer) {
-
+        Connection con = dbUtils.getConnection();
+        try(PreparedStatement preStmt = con.prepareStatement("delete from orders where ID = ?")){
+            preStmt.setInt(1, integer);
+            int result = preStmt.executeUpdate();
+        }catch (SQLException e){
+            System.err.println("Error DB " + e);
+        }
     }
 
     @Override
@@ -139,5 +144,28 @@ public class DBOrderRepository implements IOrderRepository {
             System.err.println("Error DB " + e);
         }
         return products;
+    }
+
+    @Override
+    public void deleteProducts(Order order) {
+        Connection con = dbUtils.getConnection();
+        try(PreparedStatement preStmt = con.prepareStatement("delete from orderedProducts where o_id = ?")){
+            preStmt.setInt(1, order.getId());
+            int result = preStmt.executeUpdate();
+        }catch (SQLException e){
+            System.err.println("Error DB " + e);
+        }
+    }
+
+    @Override
+    public void updateImportance(Integer id, Order order) {
+        Connection con = dbUtils.getConnection();
+        try(PreparedStatement preStmt = con.prepareStatement("update orders set importance = ? where ID = ?")){
+            preStmt.setString(1, order.getImportance().toString());
+            preStmt.setInt(2, id);
+            int result = preStmt.executeUpdate();
+        }catch (SQLException e){
+            System.err.println("Error DB " + e);
+        }
     }
 }

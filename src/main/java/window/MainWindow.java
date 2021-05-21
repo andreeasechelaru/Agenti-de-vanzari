@@ -126,11 +126,19 @@ public class MainWindow {
         }
     }
 
+    /**
+     * Update the field from the window that represents the number of products from the current cart
+     * @param products the number of products added by the logged agent in the cart
+     */
     public void updateCart(Integer products)
     {
         productsCart.setText(products.toString());
     }
 
+    /**
+     * The agent click to see his cart and a new window will show up with information about the current cart
+     * throws exception if there is any problem on opening the new window
+     */
     public void clickSeeCartButton()
     {
         try{
@@ -145,6 +153,10 @@ public class MainWindow {
         }
     }
 
+    /**
+     * The agent click to see his orders
+     * @throws IOException
+     */
     public void clickMyOrdersButton() throws IOException {
         controller.handleMyOrders();
     }

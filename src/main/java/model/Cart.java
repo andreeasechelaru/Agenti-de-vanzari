@@ -27,6 +27,12 @@ public class Cart{
         return products;
     }
 
+    /**
+     * Add product in current list of product. If the product doesn't exist in the list the program will add it with it's quantity
+     * else the program wil update it's quantity from the list. At the end the program recompute the total price.
+     * @param product
+     * @param quantity
+     */
     public void addProduct(Product product, int quantity)
     {
         if(products.containsKey(product.getId()))

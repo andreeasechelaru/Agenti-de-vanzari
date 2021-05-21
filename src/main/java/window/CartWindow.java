@@ -4,7 +4,6 @@ import controller.CartController;
 import controller.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -37,11 +36,13 @@ public class CartWindow {
     public TableColumn<Product, Integer> quantityColumn;
 
     MainController mainController;
-    CartController controller;
+    CartController cartController;
     public void setController(CartController controller, MainController mainController){
-        this.controller = controller;
+        this.cartController = controller;
         this.mainController = mainController;
     }
+
+
     public void initProductsTable(List<Product> products)
     {
         model_products.setAll(products);
@@ -56,13 +57,9 @@ public class CartWindow {
         tableProducts.setItems(model_products);
     }
 
-    public void updateTotalPrice(float price)
-    {
-        totalPrice.setText(String.valueOf(price));
-    }
 
-    public void updateProductsSize(int size)
-    {
+    public void updateCartInfo(float price, int size){
+        totalPrice.setText(String.valueOf(price));
         productsSize.setText(String.valueOf(size));
     }
 
@@ -79,7 +76,7 @@ public class CartWindow {
     public void clickUpdateQuantityButton()
     {
         try{
-            controller.handleUpdateQuantity(selectProduct(), selectQuantity());
+            cartController.handleUpdateQuantity(selectProduct(), selectQuantity());
         }catch (ValidationException e)
         {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -90,17 +87,24 @@ public class CartWindow {
         }
     }
 
+
     public String insertDiscount()
     {
         return discountField.getText();
     }
 
+    /**
+     * Apply a discount to the order
+     * @return
+     */
     public void clickApplyDiscountButton() {
         try{
             String ds = insertDiscount();
             int d = Integer.parseInt(ds);
-            controller.handleApplyDiscount(d);
-            System.out.println("Discount added");
+            cartController.handleApplyDiscount(d);
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setHeaderText("Discount added");
+            info.showAndWait();
         }catch (ValidationException | NumberFormatException e)
         {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -111,9 +115,12 @@ public class CartWindow {
         }
     }
 
+    /**
+     * Place the order with products from the current cart
+     */
     public void clickPlaceTheOrderButton() {
         try{
-            controller.handlePlaceOrder();
+            cartController.handlePlaceOrder();
 
             Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setHeaderText("Successful placed the order");

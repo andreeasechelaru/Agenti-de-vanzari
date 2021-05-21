@@ -128,11 +128,22 @@ public class Service {
         return products;
     }
 
+    /**
+     * A product was added to cart so the program have to update the quantity available on stock
+     * @param product the product that was added to cart
+     * @param quantity the quantity of the selected product
+     */
     public void productAddedToCart(Product product, int quantity){
         product.setQuantity(product.getQuantity() - quantity);
         productRepo.update(product.getId(), product);
     }
 
+    /**
+     * In the current cart the program retains just the product's id so it will find each product from the database
+     * and return the final result
+     * @param cart Cart currentCart
+     * @return the list of products from the current cart
+     */
     public List<Product> getAllProductsFromCart(Cart cart)
     {
         Iterator it = cart.getProducts().entrySet().iterator();
@@ -174,11 +185,19 @@ public class Service {
         return p1.getQuantity();
     }
 
+
+    /**
+     * Create a new order with logged agent and his cart info, importance medium, status pending
+     * After saving the order in database the program will select random an order to change its status in accepted
+     * @param agent
+     * @param cart
+     */
     public void placeOrder(Agent agent, Cart cart)
     {
         Order order = new Order();
         order.setAgent(agent.getId());
         order.setProducts(getAllProductsFromCart(cart));
+        order.setImportance(TypeImportance.medium);
         int discount = cart.getDiscount();
         float total = cart.getTotalPrice();
         System.out.println("New order created ...");
@@ -196,22 +215,7 @@ public class Service {
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        int ok = 0;
-                        List<Order> orders = getAllOrders(1);
-                        System.out.println("All orders: ");
-                        for(Order o : orders)
-                            System.out.println(o);
-                        while(ok == 0)
-                        {
-                            int index = (int)(Math.random() * orders.size());
-                            Order order1 = orders.get(index);
-                            if(order1.getStatus() == TypeStatus.pending) {
-                                ok = 1;
-                                order1.setStatus(TypeStatus.accepted);
-                                orderRepo.update(order1.getId(), order1);
-                            }
-
-                        }
+                        acceptOrder();
                         t.cancel();
                     }
                 },
@@ -220,9 +224,46 @@ public class Service {
 
     }
 
+    /**
+     * The program will randomly choose a order to accept it
+     */
+    public void acceptOrder()
+    {
+        int ok = 0;
+        List<Order> orders = getAllOrders(1);
+        System.out.println("All orders: ");
+        for(Order o : orders)
+            System.out.println(o);
+        while(ok == 0)
+        {
+            int index = (int)(Math.random() * orders.size());
+            Order order1 = orders.get(index);
+            if(order1.getStatus() == TypeStatus.pending) {
+                ok = 1;
+                order1.setStatus(TypeStatus.accepted);
+                orderRepo.update(order1.getId(), order1);
+            }
+
+        }
+    }
+
+    /**
+     * The selected order will be removed from database
+     * @param order
+     */
     public void cancelOrder(Order order)
     {
-        order.setStatus(TypeStatus.canceled);
-        orderRepo.update(order.getID(), order);
+        orderRepo.deleteProducts(order);
+        orderRepo.delete(order.getID());
+    }
+
+    /**
+     * The selected order will be updated to urgent in database
+     * @param order
+     */
+    public void urgentOrder(Order order) {
+        order.setImportance(TypeImportance.urgent);
+        orderRepo.updateImportance(order.getID(), order);
+
     }
 }

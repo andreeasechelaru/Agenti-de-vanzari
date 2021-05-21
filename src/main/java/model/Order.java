@@ -91,16 +91,18 @@ public class Order extends Entity<Integer>{
     private TypeStatus status;
     private float total;
     private List<Product> products;
+    private TypeImportance importance;
 
     public Order() {
     }
 
-    public Order(int agent, List<Product> products, LocalDateTime dateTime, TypeStatus status, float total) {
+    public Order(int agent, List<Product> products, LocalDateTime dateTime, TypeStatus status, float total, TypeImportance importance) {
         this.agent = agent;
         this.products = products;
         this.dateTime = dateTime;
         this.status = status;
         this.total = total;
+        this.importance = importance;
     }
 
     public int getAgent() {
@@ -144,6 +146,14 @@ public class Order extends Entity<Integer>{
     }
 
     public int getID(){return this.getId();}
+
+    public TypeImportance getImportance() {
+        return importance;
+    }
+
+    public void setImportance(TypeImportance importance) {
+        this.importance = importance;
+    }
 
     @Override
     public String toString() {

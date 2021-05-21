@@ -17,14 +17,16 @@
             <Font name="Bell MT Bold" size="32.0" />
          </font>
       </Label>
-      <TableView fx:id="tableOrders" layoutX="85.0" layoutY="154.0" opacity="0.86" prefHeight="290.0" prefWidth="299.0" style="-fx-background-radius: 12; -fx-border-radius: 12;">
+      <TableView fx:id="tableOrders" layoutX="46.0" layoutY="151.0" opacity="0.86" prefHeight="290.0" prefWidth="379.0" style="-fx-background-radius: 12; -fx-border-radius: 12;">
         <columns>
           <TableColumn fx:id="idColumn" prefWidth="75.0" text="No. Order" />
           <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
           <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Price" />
           <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
+          <TableColumn fx:id="importanceColumn" prefWidth="75.0" text="Importance" />
         </columns>
       </TableView>
-      <Button layoutX="187.0" layoutY="489.0" mnemonicParsing="false" onAction="#clickCancelOrder" prefHeight="39.0" prefWidth="95.0" style="-fx-background-radius: 12;" text="Cancel Order" />
+      <Button layoutX="106.0" layoutY="488.0" mnemonicParsing="false" onAction="#clickCancelOrder" prefHeight="39.0" prefWidth="95.0" style="-fx-background-radius: 12;" text="Cancel Order" />
+      <Button layoutX="255.0" layoutY="488.0" mnemonicParsing="false" onAction="#clickMakeUrgentButton" prefHeight="39.0" prefWidth="95.0" style="-fx-background-radius: 12;" text="Make Urgent" />
    </children>
 </AnchorPane>

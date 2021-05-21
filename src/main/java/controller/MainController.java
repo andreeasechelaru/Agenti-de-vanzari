@@ -117,16 +117,21 @@ public class MainController {
         initiateProducts();
     }
 
+    /**
+     * The program will open a new window representing the cart window with all information about agent's cart
+     * @throws IOException if there is a problem opening the window
+     */
     public void handleSeeCart() throws IOException {
         //open cart window
         CartController cartController = new CartController();
-        cartController.setService(service);
-        cartController.setLoggedAgent(loggedAgent);
-        cartController.setCart(curentCart);
-        cartController.setMainController(this);
+        cartController.setProperties(service, loggedAgent, curentCart, this);
         cartController.initiateCartProcedure();
     }
 
+    /**
+     * The program will open a new window representing all orders placed by the logged agent
+     * @throws IOException  if there is a problem opening the window
+     */
     public void handleMyOrders() throws IOException {
         //open orders window
         OrdersController ordersController = new OrdersController();
