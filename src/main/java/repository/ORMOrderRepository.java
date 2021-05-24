@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class DBOrderRepository implements IOrderRepository {
+public class ORMOrderRepository implements IOrderRepository {
 
     private JdbcUtils dbUtils;
 
 
-    public DBOrderRepository(Properties props) {
+    public ORMOrderRepository(Properties props) {
         dbUtils=new JdbcUtils(props);
     }
 

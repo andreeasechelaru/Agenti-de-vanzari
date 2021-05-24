@@ -1,10 +1,6 @@
-import repository.DBOrderRepository;
+import repository.ORMOrderRepository;
 import controller.LoginController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Agent;
 import model.Order;
@@ -15,7 +11,6 @@ import validators.AgentValidator;
 import validators.IValidator;
 import validators.OrderValidator;
 import validators.ProductValidator;
-import window.LoginWindow;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -52,8 +47,7 @@ public class Main extends Application {
         //repositories
         agentRepository = new ORMAgentRepository();
         productRepository = new ORMProductRepository();
-//        orderRepository = new ORMOrderRepository();
-        orderRepository = new DBOrderRepository(props);
+        orderRepository = new ORMOrderRepository(props);
         //validators
         agentIValidator = new AgentValidator();
         productIValidator = new ProductValidator();
