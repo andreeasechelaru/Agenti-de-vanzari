@@ -8,4 +8,4 @@ O firma are mai multi agenti de vanzari, care fac comenzi pentru clientii firmei
 •agentul poate comanda o cantitate dintr-un produs. După orice comanda valida, toti agentii logati  în  aplicație  vor  vedea  lista  actualizata  a  stocurilor.
 
 
-Implementarea pentru itaratiile 1,2,3 se afla pe branch-ul "implementare" iar toate diagramele de secventa, comunicare, clasa pe branch-ul main in file-ul "Diagrama"
+Implementarea pentru iteratiile 1,2,3 se afla pe branch-ul "implementare" iar toate diagramele de secventa, comunicare, clasa pe branch-ul main in file-ul "Diagrama"
