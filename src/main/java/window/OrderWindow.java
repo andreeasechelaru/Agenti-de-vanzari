@@ -91,7 +91,7 @@ public class OrderWindow {
             orderController.handleUrgentOrder(selectOrder());
 
             Alert info = new Alert(Alert.AlertType.INFORMATION);
-            info.setHeaderText("Successful canceled the order");
+            info.setHeaderText("Successful making urgent the order");
             info.showAndWait();
         }catch (ValidationException e)
         {
